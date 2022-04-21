@@ -1,15 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { IPaginacao } from "../../interfaces/IPaginacao";
+import IPrato from "../../interfaces/IPrato";
 import IRestaurante from "../../interfaces/IRestaurante";
 import style from "./ListaRestaurantes.module.scss";
+import Prato from "./Prato";
 import Restaurante from "./Restaurante";
 
-const ListaRestaurantes = () => {  
-
+const ListaRestaurantes = () => {
   const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([]);
   const [proximaPagina, setProximaPagina] = useState("");
-
 
   useEffect(() => {
     //obter restaurantes
@@ -18,7 +18,6 @@ const ListaRestaurantes = () => {
         "http://localhost:8000/api/v1/restaurantes/"
       )
       .then((resposta) => {
-        console.log(resposta);
         setRestaurantes(resposta.data.results);
         setProximaPagina(resposta.data.next);
       })
@@ -27,11 +26,10 @@ const ListaRestaurantes = () => {
       });
   }, []);
 
-
   const verMais = () => {
     axios
       .get<IPaginacao<IRestaurante>>(proximaPagina)
-      .then((resposta) => {       
+      .then((resposta) => {
         setRestaurantes([...restaurantes, ...resposta.data.results]);
         setProximaPagina(resposta.data.next);
       })
@@ -40,12 +38,12 @@ const ListaRestaurantes = () => {
       });
   };
 
-  
   return (
     <section className={style.ListaRestaurantes}>
       <h1>
         Os restaurantes mais <em>bacanas</em>!
       </h1>
+
       {restaurantes?.map((item) => (
         <Restaurante restaurante={item} key={item.id} />
       ))}
