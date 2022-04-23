@@ -1,66 +1,33 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-
-
-yarn add react-router-dom
-
-yarn add sass
-
-yarn add typescript-plugin-css-modules
-
-yarn add axios
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-![Integrando seu projeto React com APIs](thumbnail.png)
-
-# Alfood
-
-O Alfood é um site que lista restaurantes e pratos do menu. 
-É um MVP que tá só começando e ainda tem muitas funcionalidades novas para serem desenvolvidas.
-
-<img src="screencapture.png" alt="Imagem do Alfood" width="50%">
-
+# Olifrans Food
 
 ## 🔨 Funcionalidades do projeto
 
-O Alfood começa com uma listagem estática de seu conteúdo e é esse o problema que queremos resolver.
-No decorrer do curso, vamos implementar toda a camada de comunicação com a API.
-
+Realiza listagem de pratos e restaurantes buscando na API olifrans-food_api.
 ## ✔️ Técnicas e tecnologias utilizadas
-
-Se liga nessa lista de tudo que usaremos nesse treinamento:
 
 - `React`
 - `React Hooks`
 - `TypeScript`
 - `axios`
+- `sass`
+yarn add react-router-dom
+yarn add sass
+yarn add typescript-plugin-css-modules
+yarn add axios
 
 ## 🛠️ Abrir e rodar o projeto
+Execute "npm i" para instalar as dependências e "npm start" para inicar o projeto.
 
-Para abrir e rodar o projeto, execute npm i para instalar as dependências e npm start para inicar o projeto.
+### 🛠️ Abrir o  projeto "olifrans-food"
+No CLI execute o comando "npm start" ou "yarn start"
+Acesse <a href="http://localhost:3000/">http://localhost:3000/</a> no seu navegador.
 
-Depois, acesse <a href="http://localhost:3000/">http://localhost:3000/</a> no seu navegador.
+### 🛠️ Para iniciar a API do projeto "olifrans-food_api"
+Obs: Necessario ter o Dock instalado - No CLI execute o comando:
+docker-compose build
+docker-compose up
+Acesse <a href="http://localhost:8000/">http://localhost:0000/</a> no seu navegador.
 
-## 📚 Mais informações do curso
 
-Busque na plataforma da Alura o curso **Integrando seu projeto React com APIs** publicado na Escola Frontend.
+## 📚 Foi o ótimo estudo
+

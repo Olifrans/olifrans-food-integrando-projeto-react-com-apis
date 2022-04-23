@@ -1,23 +1,21 @@
 import {
-  TextField,
-  Button,
-  Typography,
   Box,
+  Button,
   FormControl,
   InputLabel,
-  Select,
   MenuItem,
+  Select,
+  TextField,
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import http from "../../../http";
-import IPrato from "../../../interfaces/IPrato";
 import IRestaurante from "../../../interfaces/IRestaurante";
 import ITag from "../../../interfaces/ITag";
 
 const FormularioPratos = () => {
   const [nomePrato, setNomePrato] = useState("");
-  const [descricaoPrato, setDescricaoPrato] = useState("");
+  const [descricao, setDescricao] = useState("");
 
   const [tag, setTag] = useState("");
   const [restaurante, setRestaurante] = useState("");
@@ -26,7 +24,6 @@ const FormularioPratos = () => {
 
   const [tags, setTags] = useState<ITag[]>([]);
   const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([]);
-
 
   useEffect(() => {
     http
@@ -37,7 +34,6 @@ const FormularioPratos = () => {
       .then((resposta) => setRestaurantes(resposta.data));
   }, []);
 
-
   const selecionarArquivo = (evento: React.ChangeEvent<HTMLInputElement>) => {
     if (evento.target.files?.length) {
       setImagem(evento.target.files[0]);
@@ -46,34 +42,39 @@ const FormularioPratos = () => {
     }
   };
 
-  const onSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
+  const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
     evento.preventDefault();
 
     const formData = new FormData();
 
     formData.append("nome", nomePrato);
-    formData.append("dedescricao", descricaoPrato);
+    formData.append("descricao", descricao);
+
     formData.append("tag", tag);
+
     formData.append("restaurante", restaurante);
 
     if (imagem) {
       formData.append("imagem", imagem);
     }
 
-    http.request({
-      url: 'pratos/',
-      method: 'POST',
-      headers: {
-        'Content-Type':  'mulipart/form-data'
-      },
-      data: formData
-    })
-    .then(() => {
-
-      alert("Prato Cadastrado com sucesso!")
-    });
-    //.catch(erro => console.log(erro))
-
+    http
+      .request({
+        url: "pratos/",
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        data: formData,
+      })
+      .then(() => {
+        setNomePrato("");
+        setDescricao("");
+        setTag("");
+        setRestaurante("");
+        alert("Prato cadastrado com sucesso!");
+      })
+      .catch((erro) => console.log(erro));
   };
 
   return (
@@ -86,10 +87,9 @@ const FormularioPratos = () => {
       }}
     >
       <Typography component="h1" variant="h6">
-        Cadastrar Prato
+        Formulário de Pratos
       </Typography>
-      <Box component="form" sx={{ width: "100%" }} onSubmit={onSubmeterForm}>
-
+      <Box component="form" sx={{ width: "100%" }} onSubmit={aoSubmeterForm}>
         <TextField
           value={nomePrato}
           onChange={(evento) => setNomePrato(evento.target.value)}
@@ -99,10 +99,9 @@ const FormularioPratos = () => {
           required
           margin="dense"
         />
-
         <TextField
-          value={descricaoPrato}
-          onChange={(evento) => setDescricaoPrato(evento.target.value)}
+          value={descricao}
+          onChange={(evento) => setDescricao(evento.target.value)}
           label="Descrição do Prato"
           variant="standard"
           fullWidth
@@ -111,7 +110,7 @@ const FormularioPratos = () => {
         />
 
         <FormControl margin="dense" fullWidth>
-          <InputLabel id="select-tag">Tag </InputLabel>
+          <InputLabel id="select-tag">Tag</InputLabel>
           <Select
             labelId="select-tag"
             value={tag}
@@ -125,12 +124,8 @@ const FormularioPratos = () => {
           </Select>
         </FormControl>
 
-
-
-
-
         <FormControl margin="dense" fullWidth>
-          <InputLabel id="select-restaurante">Restaurante </InputLabel>
+          <InputLabel id="select-restaurante">Restaurante</InputLabel>
           <Select
             labelId="select-restaurante"
             value={restaurante}
